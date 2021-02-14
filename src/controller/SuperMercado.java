@@ -25,6 +25,9 @@ public class SuperMercado {
         listaProductos.add(new Producto("PR09", "COCA-COLA 1200ML", "COMIDA", 49, 3000, 3800, "VEN: 02/02/21"));
         listaProductos.add(new Producto("PR10", "LECHE COLANTA 1000ML", "COMIDA", 17, 2500, 3600, "VEN: 02/02/21"));
 
+        listaClientes.add(new Cliente("1006117174","Fernanda","calle 7", "5800694", "CL01", null));
+        listaClientes.add(new Cliente("1152702267","Aldahir","calle 8", "5800695", "CL02", null));
+        listaClientes.add(new Cliente("42866832","Panchito","calle 9", "5800696", "CL03", null));
     }
 
     public SuperMercado(String idSuperMercado) {
@@ -70,17 +73,18 @@ public class SuperMercado {
         this.listaClientes = listaClientes;
     }
 
-    public void mostrarListaProductos() {
+    public String mostrarListaProductos() {
         Iterator<Producto> it = listaProductos.iterator();
         String concat = "**Lista de Productos**\n\n";
         int i = 1;
         Producto aux;
         while (it.hasNext()) {
             aux = it.next();
-            concat += i +") "+"Cod: "+aux.getIdProducto()+ " "+ aux.getNombreProducto() +" cantidad: "+ aux.getCantidad() + "\n";
+            concat += i +") "+"Cod: "+aux.getIdProducto()+ " "+ aux.getNombreProducto() +
+                    " cantidad: "+ aux.getCantidad() +" Precio: "+ aux.getPrecio() + "\n";
             i++;
         }
-        JOptionPane.showMessageDialog(null, concat);
+        return concat;
     }
 
     public void mostrarListaCliente() {

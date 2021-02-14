@@ -1,5 +1,8 @@
 package menu;
 
+import controller.Administrador;
+import controller.SuperMercado;
+
 import javax.swing.*;
 
 public class MenuAdministrador {
@@ -15,16 +18,21 @@ public class MenuAdministrador {
                 + "1) Agregar cliente\n"
                 + "2) Editar datos del cliente\n"
                 + "3) Eliminar cliente\n"
-                + "4) Agregar producto al sistema \n"
-                + "5) Editar producto \n"
-                + "6) Eliminar producto \n"
-                + "7) Salir"
+                + "4) Mostrar lista de clientes \n"
+                + "5) Agregar producto al sistema \n"
+                + "6) Editar producto \n"
+                + "7) Eliminar producto \n"
+                + "8) Salir"
                 + "Ingrese una opción:";
+
+        SuperMercado superMercado = new SuperMercado();
+        Administrador administrador = new Administrador();
 
         do {
             opcion = Integer.parseInt(JOptionPane.showInputDialog(opciones));
             switch (opcion) {
-                case 1:
+                case 1: superMercado.mostrarListaCliente();
+                        administrador.agregarCliente(superMercado.getListaClientes());
                     break;
                 case 2:
                     break;
@@ -39,14 +47,16 @@ public class MenuAdministrador {
                 case 7:
                     break;
                 case 8:
-                    opcion = 9;
+                    break;
+                case 9:
+                    opcion = 10;
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción incorrecta \n " +
                             "Seleccione una de las opciones del menú");
                     break;
             }
-        } while (opcion != 9);
+        } while (opcion != 10);
 
 
     }

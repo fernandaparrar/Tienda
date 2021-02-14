@@ -9,6 +9,7 @@ public class Cliente extends Persona {
 
     private String idCliente;
     private List<Producto> carrito = new ArrayList();
+    private int totalPagar = 0;
 
     public Cliente() {
 
@@ -40,55 +41,66 @@ public class Cliente extends Persona {
         this.carrito = carrito;
     }
 
-    public void agregarProductoCarrito(List<Producto> listGeneral) {
-        Producto aux;
+    public void agregarProductoCarrito(SuperMercado superMercado) {
         int sw = 1;
         while (sw == 1) {
             int cont = 0;
-            String codigo = JOptionPane.showInputDialog("Ingrese el codigo del producto que desea agregar al carrito");
+            String codigo = JOptionPane.showInputDialog(superMercado.mostrarListaProductos() + "\n\nIngrese el codigo del producto que desea agregar al carrito\nEjemplo: (PR06)");
             int cant = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad que desea llevar: "));
-            for (Producto producto : listGeneral) {
+            for (Producto producto : superMercado.getListaProductos()) {
                 if (producto.getIdProducto().equals(codigo)) {
-                    aux= producto;
-                    aux.setCantidad(cant);
-                    aux.setPrecio(producto.getPrecio()*cant);
-                    carrito.add(aux);
-                }
-                if (cont > listGeneral.size()) {
-                    JOptionPane.showMessageDialog(null, "El codigo del producton no fue identificado");
+                    producto.setCantidad(producto.getCantidad() - cant);
+                    totalPagar = totalPagar + producto.getPrecio() * cant;
+                    carrito.add(new Producto(producto.getIdProducto(), producto.getNombreProducto(), cant, producto.getPrecio() * cant));
+                    break;
                 }
                 cont++;
+                if (cont == superMercado.getListaProductos().size()) {
+                    JOptionPane.showMessageDialog(null, "El codigo del producto que fue ingresado no existe");
+                }
             }
             sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar agregando productos: Si = 1, No = 2"));
-            mostrarCarrito();
+            JOptionPane.showMessageDialog(null, mostrarCarrito());
+        }
+        if (sw != 1) {
+            JOptionPane.showMessageDialog(null, "El total a pagar es: " + totalPagar);
         }
     }
 
-    public void eliminarProductoCarrito(){
-        mostrarCarrito();
-        String opcion = JOptionPane.showInputDialog("Ingrese el codigo del producto que desea eliminar: ");
-        for(Producto producto: carrito){
-            if(producto.getIdProducto().equals(opcion)) {
-                carrito.remove(producto);
-                JOptionPane.showMessageDialog(null, "Producto eliminado");
-                mostrarCarrito();
-            }else {
-                JOptionPane.showMessageDialog(null, "El producto no existe");
+
+    public void eliminarProductoCarrito() {
+        String opcion = JOptionPane.showInputDialog(mostrarCarrito() + "Ingrese el codigo del producto que desea eliminar: ");
+        int sw = 1;
+        while (sw == 1) {
+            int i = 0;
+            for (Producto producto : carrito) {
+                if (producto.getIdProducto().equals(opcion)) {
+                    carrito.remove(producto);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado");
+                    JOptionPane.showMessageDialog(null, mostrarCarrito());
+                    break;
+                }
+                i++;
+                if(i == carrito.size()){
+                    JOptionPane.showMessageDialog(null, "El producto no existe");
+                }
             }
+            sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar eliminado productos? Si = 1, No = 2"));
         }
     }
 
-    public void mostrarCarrito(){
+    public String mostrarCarrito() {
         Iterator<Producto> it = carrito.iterator();
         String concat = "**Mi Carrito**\n\n";
         int i = 1;
         Producto aux;
         while (it.hasNext()) {
             aux = it.next();
-            concat += i +") "+"Cod: "+aux.getIdProducto()+ " "+ aux.getNombreProducto() +" cantidad: "+ aux.getCantidad() + "\n";
+            concat += i + ") " + "Cod: " + aux.getIdProducto() + " " + aux.getNombreProducto() + " cantidad: " +
+                    aux.getCantidad() + " Precio: " + aux.getPrecio() + "\n";
             i++;
         }
-        JOptionPane.showMessageDialog(null, concat);
+        return concat;
     }
 
 

@@ -24,6 +24,13 @@ public class Producto {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    public Producto(String idProducto, String nombreProducto, int cantidad, int precio) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
     public float getCosto() {
         return costo;
     }

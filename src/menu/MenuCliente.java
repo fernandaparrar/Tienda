@@ -31,11 +31,16 @@ public class MenuCliente {
             opcion = Integer.parseInt(JOptionPane.showInputDialog(opciones));
             switch (opcion) {
                 case 1: superMercado.mostrarListaProductos();
-                        cliente.agregarProductoCarrito(superMercado.getListaProductos());
+                        cliente.agregarProductoCarrito(superMercado);
                     break;
                 case 2: cliente.eliminarProductoCarrito();
                     break;
-                case 3: cliente.mostrarCarrito();
+                case 3:
+                    if(cliente.getCarrito().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Aún no se han ingresado productos en el carrito de compras");
+                    }else{
+                        JOptionPane.showMessageDialog(null, cliente.mostrarCarrito());
+                    }
                     break;
                 case 4:
                     opcion = 5;
