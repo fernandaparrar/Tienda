@@ -18,11 +18,12 @@ public class MenuAdministrador {
                 + "1) Agregar cliente\n"
                 + "2) Editar datos del cliente\n"
                 + "3) Eliminar cliente\n"
-                + "4) Mostrar lista de clientes \n"
+                + "4) Ver lista de clientes \n"
                 + "5) Agregar producto al sistema \n"
                 + "6) Editar producto \n"
                 + "7) Eliminar producto \n"
-                + "8) Salir"
+                + "8) Ver lista productos \n"
+                + "9) Salir"
                 + "Ingrese una opción:";
 
         SuperMercado superMercado = new SuperMercado();
@@ -32,21 +33,24 @@ public class MenuAdministrador {
             opcion = Integer.parseInt(JOptionPane.showInputDialog(opciones));
             switch (opcion) {
                 case 1: superMercado.mostrarListaCliente();
-                        administrador.agregarCliente(superMercado.getListaClientes());
+                        administrador.agregarCliente(superMercado.getListaClientes(), superMercado);
                     break;
-                case 2:
+                case 2: superMercado.mostrarListaClienteAdmin();
+                        administrador.editarDatos(superMercado.getListaClientes());
                     break;
-                case 3:
+                case 3: superMercado.mostrarListaClienteAdmin();
+                        administrador.eliminarCliente(superMercado.getListaClientes(), superMercado);
                     break;
-                case 4:
+                case 4: superMercado.mostrarListaCliente();
                     break;
-                case 5:
+                case 5: superMercado.mostrarListaProductos();
+                        administrador.agregarnuevoProductoAdmin(superMercado.getListaProductos(), superMercado);
                     break;
-                case 6:
+                case 6: administrador.editarDatos(superMercado.getListaClientes());
                     break;
-                case 7:
+                case 7: administrador.eliminarProducto(superMercado.getListaProductos(), superMercado);
                     break;
-                case 8:
+                case 8:superMercado.mostrarListaProductos();
                     break;
                 case 9:
                     opcion = 10;

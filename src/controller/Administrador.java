@@ -8,6 +8,7 @@ import java.util.List;
 public class Administrador extends Persona {
 
     private String idAdministrador;
+    private List<Cliente> clientes = new ArrayList();
 
     public Administrador() {
 
@@ -25,7 +26,7 @@ public class Administrador extends Persona {
         this.idAdministrador = idAdministrador;
     }
 
-    public void agregarCliente(List<Cliente> listaClientes) {
+    public void agregarCliente(List<Cliente> listaClientes, SuperMercado superMercado) {
         String cedula, nombre, direccion, telefono, idCliente = "";
         List carrito = null;
         Cliente aux = new Cliente();
@@ -47,6 +48,7 @@ public class Administrador extends Persona {
                 JOptionPane.showMessageDialog(null, "El cliente ya existe");
             } else {
                 listaClientes.add(aux);
+                JOptionPane.showMessageDialog(null, "Cliente agregado\n\n" + superMercado.mostrarListaProductos());
             }
             // }
             cont++;
@@ -55,6 +57,126 @@ public class Administrador extends Persona {
 
         }
     }
+
+    public void editarDatos(List<Cliente> listaClientes) {
+        String nuevo;
+        int sw = 1;
+        String cedula = JOptionPane.showInputDialog("Ingrese la cedula del cliente que quiere editar: ");
+        while (sw == 1) {
+            System.out.println("ENtra 1");
+            for (Cliente cliente1 : listaClientes) {
+                System.out.println(cliente1.getCedula());
+                System.out.println(cedula);
+                if (cliente1.getCedula().equals(cedula)) {
+                    String opcion;
+                    opcion = JOptionPane.showInputDialog("Ingresa el número del dato que desea editar: \n\n" +
+                            "1. Nombre \n" + "2. Direccion \n" + "3. Telefono \n" + "4. Id \n");
+                    switch (opcion) {
+                        case "1":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el nuevo nombre: ");
+                            cliente1.setNombreCompleto(nuevo);
+                            break;
+                        case "2":
+                            nuevo = JOptionPane.showInputDialog("Ingrese la nueva dirección: ");
+                            cliente1.setDireccion(nuevo);
+                            break;
+                        case "3":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el nuevo teléfono: ");
+                            cliente1.setTelefono(nuevo);
+                            break;
+                        case "4":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el nuevo id: ");
+                            cliente1.setIdCliente(nuevo);
+                            break;
+                        default:
+                            JOptionPane.showInputDialog("Opción incorrecta.\n" + "Por favor ingrese una opcion valida: ");
+                            break;
+                    }
+                    break;
+                }else {
+                    JOptionPane.showInputDialog("El cliente no existe, por favor ingrese una cédula válida: ");
+                }
+            }sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar agregando clientes: Si = 1, No = 2"));
+        }
+    }
+
+    public void eliminarCliente(List<Cliente> listaClientes, SuperMercado superMercado) {
+       String cedula = JOptionPane.showInputDialog("Ingrese la cedula del cliente que desea eliminar: ");
+        int sw = 1;
+        while (sw == 1) {
+            int i = 0;
+            for (Cliente cliente : listaClientes) {
+                if (cliente.getCedula().equals(cedula)) {
+                    listaClientes.remove(cliente);
+                    JOptionPane.showMessageDialog(null, "Cliente eliminado\n" + superMercado.mostrarListaProductos());
+                    break;
+                }
+                i++;
+                if(i == listaClientes.size()){
+                    JOptionPane.showMessageDialog(null, "El cliente no existe");
+                }
+            }
+            sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar eliminando clientes? Si = 1, No = 2"));
+        }
+    }
+
+    public void agregarnuevoProductoAdmin(List<Producto> listProductos, SuperMercado superMercado){
+        JOptionPane.showMessageDialog(null, superMercado.mostrarListaProductos());
+        String idProducto, nombre, tipo, fechaVencimiento = "";
+        int cantidad, costo, precio = 0;
+        Producto aux = new Producto();
+        int sw = 1;
+        while (sw == 1) {
+            int cont = 0;
+            idProducto = JOptionPane.showInputDialog("Ingrese el id del nuevo producto: ");
+            nombre = JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: ");
+            tipo = JOptionPane.showInputDialog("Ingrese tipo del nuevo producto: ");
+            fechaVencimiento = JOptionPane.showInputDialog("Ingrese la fecha de vencimiento del nuevo producto: ");
+            cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad del nuevo producto: "));
+            costo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el costo del nuevo producto: "));
+            precio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el precio del nuevo producto: "));
+            aux.setIdProducto(idProducto);
+            aux.setNombreProducto(nombre);
+            aux.setTipoProducto(tipo);
+            aux.setFechaVencimiento(fechaVencimiento);
+            aux.setCantidad(cantidad);
+            aux.setCosto(costo);
+            aux.setPrecio(precio);
+            if (listProductos.contains(aux)) {
+                JOptionPane.showMessageDialog(null, "El producto ya existe");
+            } else {
+                listProductos.add(aux);
+                JOptionPane.showMessageDialog(null, "Podructo agregado \n" + superMercado.mostrarListaProductos());
+            }
+            // }
+            cont++;
+            //}
+            sw = Integer.parseInt(JOptionPane.showInputDialog("¡Desea continuar agregando productos?: Si = 1, No = 2"));
+
+        }
+    }
+
+    public void eliminarProducto(List<Producto> listaProductos, SuperMercado superMercado) {
+        String idProducto = JOptionPane.showInputDialog(superMercado.mostrarListaProductos()  +
+                "\n\n Ingrese el id del producto que desea eliminar: ");
+        int sw = 1;
+        while (sw == 1) {
+            int i = 0;
+            for (Producto producto : listaProductos) {
+                if (producto.getIdProducto().equals(idProducto)){
+                    listaProductos.remove(producto);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado\n\n" + superMercado.mostrarListaProductos());
+                    break;
+                }
+                i++;
+                if(i == listaProductos.size()){
+                    JOptionPane.showMessageDialog(null, "El producto no existe");
+                }
+            }
+            sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar eliminando productos? Si = 1, No = 2"));
+        }
+    }
+
 }
 
 

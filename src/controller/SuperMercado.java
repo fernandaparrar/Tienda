@@ -100,4 +100,18 @@ public class SuperMercado {
         JOptionPane.showMessageDialog(null, concat);
     }
 
+    public void mostrarListaClienteAdmin() {
+        Iterator<Cliente> it = listaClientes.iterator();
+        String concat = "**Lista de Clientes**\n\n";
+        int i = 1;
+        Cliente aux;
+        while (it.hasNext()) {
+            aux = it.next();
+            concat += i +") "+"Cod: "+aux.getIdCliente() + " " + "Cédula: " + aux.getCedula() + " " + "Nombre: "+ aux.getNombreCompleto() +
+                    " " + "Dirección: " + aux.getDireccion() + " " + "Teléfono: " + " " + "IdCliente: " + aux.getIdCliente() + "\n";
+            i++;
+        }
+        JOptionPane.showMessageDialog(null, concat);
+    }
+
 }
