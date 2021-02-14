@@ -58,15 +58,14 @@ public class Administrador extends Persona {
         }
     }
 
-    public void editarDatos(List<Cliente> listaClientes) {
+    public void editarDatos(List<Cliente> listaClientes, SuperMercado superMercado) {
+        superMercado.mostrarListaClienteAdmin();
         String nuevo;
         int sw = 1;
-        String cedula = JOptionPane.showInputDialog("Ingrese la cedula del cliente que quiere editar: ");
         while (sw == 1) {
-            System.out.println("ENtra 1");
+            String cedula = JOptionPane.showInputDialog("Ingrese la cedula del cliente que quiere editar: ");
+            int sw2 = 0;
             for (Cliente cliente1 : listaClientes) {
-                System.out.println(cliente1.getCedula());
-                System.out.println(cedula);
                 if (cliente1.getCedula().equals(cedula)) {
                     String opcion;
                     opcion = JOptionPane.showInputDialog("Ingresa el número del dato que desea editar: \n\n" +
@@ -75,28 +74,36 @@ public class Administrador extends Persona {
                         case "1":
                             nuevo = JOptionPane.showInputDialog("Ingrese el nuevo nombre: ");
                             cliente1.setNombreCompleto(nuevo);
+                            sw2 = 1;
                             break;
                         case "2":
                             nuevo = JOptionPane.showInputDialog("Ingrese la nueva dirección: ");
                             cliente1.setDireccion(nuevo);
+                            sw2 = 1;
                             break;
                         case "3":
                             nuevo = JOptionPane.showInputDialog("Ingrese el nuevo teléfono: ");
                             cliente1.setTelefono(nuevo);
+                            sw2 = 1;
                             break;
                         case "4":
                             nuevo = JOptionPane.showInputDialog("Ingrese el nuevo id: ");
                             cliente1.setIdCliente(nuevo);
+                            sw2 = 1;
                             break;
                         default:
-                            JOptionPane.showInputDialog("Opción incorrecta.\n" + "Por favor ingrese una opcion valida: ");
+                            JOptionPane.showMessageDialog(null,"Opción incorrecta.\nPor favor ingrese una opcion valida");
                             break;
                     }
-                    break;
-                }else {
-                    JOptionPane.showInputDialog("El cliente no existe, por favor ingrese una cédula válida: ");
+                    if( sw2 == 1 )
+                        break;
                 }
-            }sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar agregando clientes: Si = 1, No = 2"));
+            }
+            if( sw2 == 1 ){
+                sw = Integer.parseInt(JOptionPane.showInputDialog("Cliente editado correctamente. \nDesea continuar editando clientes: Si = 1, No = 2"));
+            }else{
+                sw = Integer.parseInt(JOptionPane.showInputDialog("Cliente no encontrado.\nDesea continuar editando clientes: Si = 1, No = 2"));
+            }
         }
     }
 
@@ -174,6 +181,71 @@ public class Administrador extends Persona {
                 }
             }
             sw = Integer.parseInt(JOptionPane.showInputDialog("Desea continuar eliminando productos? Si = 1, No = 2"));
+        }
+    }
+
+    public void editarProducto(List<Producto> listaProductos, SuperMercado superMercado){
+        superMercado.mostrarListaProductosAdmin();
+        String nuevo;
+        int sw = 1;
+        while (sw == 1) {
+            String idProducto = JOptionPane.showInputDialog("Ingrese el id del producto que desea eliminar: ");
+            int sw2 = 0;
+            for (Producto producto : listaProductos) {
+                if (producto.getIdProducto().equals(idProducto)) {
+                    String opcion;
+                    opcion = JOptionPane.showInputDialog("Ingresa el número del dato que desea editar: \n\n" +
+                            "1. idProducto \n" + "2. Nombre \n" + "3. Tipo \n" + "4. Cantidad \n" + "5. Costo \n" +
+                            "6. Precio \n" + "7.Fecha de vencimiento \n");
+                    switch (opcion) {
+                        case "1":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el nuevo id: ");
+                            producto.setIdProducto(nuevo);
+                            sw2 = 1;
+                            break;
+                        case "2":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el nombre del producto: ");
+                            producto.setNombreProducto(nuevo);
+                            sw2 = 1;
+                            break;
+                        case "3":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el tipo del producto: ");
+                            producto.setTipoProducto(nuevo);
+                            sw2 = 1;
+                            break;
+                        case "4":
+                            nuevo = JOptionPane.showInputDialog("Ingrese la cantidad del producto: ");
+                            producto.setCantidad(Integer.parseInt(nuevo));
+                            sw2 = 1;
+                            break;
+                        case "5":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el costo del producto: ");
+                            producto.setCosto(Integer.parseInt(nuevo));
+                            sw2 = 1;
+                            break;
+                        case "6":
+                            nuevo = JOptionPane.showInputDialog("Ingrese el precio del producto: ");
+                            producto.setPrecio(Integer.parseInt(nuevo));
+                            sw2 = 1;
+                            break;
+                        case "7":
+                            nuevo = JOptionPane.showInputDialog("Ingrese la fecha de vencimiento del producto: ");
+                            producto.setFechaVencimiento(nuevo);
+                            sw2 = 1;
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null,"Opción incorrecta.\nPor favor ingrese una opcion valida");
+                            break;
+                    }
+                    if( sw2 == 1 )
+                        break;
+                }
+            }
+            if( sw2 == 1 ){
+                sw = Integer.parseInt(JOptionPane.showInputDialog("Cliente editado correctamente. \nDesea continuar editando productos?: Si = 1, No = 2"));
+            }else{
+                sw = Integer.parseInt(JOptionPane.showInputDialog("Cliente no encontrado.\nDesea continuar editando productos?: Si = 1, No = 2"));
+            }
         }
     }
 

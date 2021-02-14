@@ -67,7 +67,6 @@ public class Cliente extends Persona {
         }
     }
 
-
     public void eliminarProductoCarrito() {
         String opcion = JOptionPane.showInputDialog(mostrarCarrito() + "Ingrese el codigo del producto que desea eliminar: ");
         int sw = 1;

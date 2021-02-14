@@ -87,6 +87,20 @@ public class SuperMercado {
         return concat;
     }
 
+    public void mostrarListaProductosAdmin() {
+        Iterator<Producto> it = listaProductos.iterator();
+        String concat = "**Lista de Productos**\n\n";
+        int i = 1;
+        Producto aux;
+        while (it.hasNext()) {
+            aux = it.next();
+            concat += i +") "+"Cod: "+aux.getIdProducto()+ " "+ aux.getNombreProducto() +
+                    " cantidad: "+ aux.getCantidad() +" Precio: "+ aux.getPrecio() + "\n";
+            i++;
+        }
+        JOptionPane.showMessageDialog(null, concat);
+    }
+
     public void mostrarListaCliente() {
         Iterator<Cliente> it = listaClientes.iterator();
         String concat = "**Lista de Clientes**\n\n";

@@ -23,7 +23,7 @@ public class MenuAdministrador {
                 + "6) Editar producto \n"
                 + "7) Eliminar producto \n"
                 + "8) Ver lista productos \n"
-                + "9) Salir"
+                + "9) Salir \n"
                 + "Ingrese una opción:";
 
         SuperMercado superMercado = new SuperMercado();
@@ -36,21 +36,21 @@ public class MenuAdministrador {
                         administrador.agregarCliente(superMercado.getListaClientes(), superMercado);
                     break;
                 case 2: superMercado.mostrarListaClienteAdmin();
-                        administrador.editarDatos(superMercado.getListaClientes());
+                        administrador.editarDatos(superMercado.getListaClientes(), superMercado);
                     break;
                 case 3: superMercado.mostrarListaClienteAdmin();
                         administrador.eliminarCliente(superMercado.getListaClientes(), superMercado);
                     break;
-                case 4: superMercado.mostrarListaCliente();
+                case 4: superMercado.mostrarListaClienteAdmin();
                     break;
                 case 5: superMercado.mostrarListaProductos();
                         administrador.agregarnuevoProductoAdmin(superMercado.getListaProductos(), superMercado);
                     break;
-                case 6: administrador.editarDatos(superMercado.getListaClientes());
+                case 6: administrador.editarProducto(superMercado.getListaProductos(), superMercado);
                     break;
                 case 7: administrador.eliminarProducto(superMercado.getListaProductos(), superMercado);
                     break;
-                case 8:superMercado.mostrarListaProductos();
+                case 8: superMercado.mostrarListaProductosAdmin();
                     break;
                 case 9:
                     opcion = 10;
