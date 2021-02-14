@@ -1,11 +1,10 @@
-package clases;
+package controller;
 
 import java.util.ArrayList;
 
-public class Administrador extends Persona{
+public class Administrador extends Persona {
 
     private String idAdministrador;
-    private ArrayList listaProductosTienda;
 
     public Administrador() {
 
@@ -23,11 +22,5 @@ public class Administrador extends Persona{
         this.idAdministrador = idAdministrador;
     }
 
-    public ArrayList getListaProductosTienda() {
-        return listaProductosTienda;
-    }
 
-    public void setListaProductosTienda(ArrayList listaProductosTienda) {
-        this.listaProductosTienda = listaProductosTienda;
-    }
 }

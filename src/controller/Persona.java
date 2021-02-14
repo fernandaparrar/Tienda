@@ -1,4 +1,4 @@
-package clases;
+package controller;
 
 public class Persona {
 

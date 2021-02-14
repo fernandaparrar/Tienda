@@ -1,40 +1,41 @@
 package menu;
 
+import controller.Cliente;
 import controller.SuperMercado;
 
 import javax.swing.*;
 
-public class Menu {
+public class MenuCliente {
 
     private int opcion;
     private String opciones;
 
-    public Menu() {
+    public MenuCliente() {
 
     }
 
-    public void menuPrincipal() {
-        this.opciones = "\t**Bienvenido al menú principal**\n\n"
-                + "1) Ingresar como administrador\n"
-                + "2) Ingresar como empleado\n"
-                + "3) Ingresar como cliente\n"
+
+
+    public void menuCliente() {
+        this.opciones = "\t**Bienvenido al menú del cliente**\n\n"
+                + "1) Agregar producto al carrito\n"
+                + "2) Eliminar producto del carrito\n"
+                + "3) Mi carrito \n"
                 + "4) Salir\n"
                 + "Ingrese una opción:";
 
         SuperMercado superMercado = new SuperMercado();
-        MenuCliente menuCliente = new MenuCliente();
-        MenuAdministrador menuAdministrador = new MenuAdministrador();
-        MenuEmpleado menuEmpleado = new MenuEmpleado();
-
+        Cliente cliente = new Cliente();
 
         do {
             opcion = Integer.parseInt(JOptionPane.showInputDialog(opciones));
             switch (opcion) {
-                case 1: menuAdministrador.menuAdministrador();
+                case 1: superMercado.mostrarListaProductos();
+                        cliente.agregarProductoCarrito(superMercado.getListaProductos());
                     break;
-                case 2: menuEmpleado.menuEmpleado();
+                case 2: cliente.eliminarProductoCarrito();
                     break;
-                case 3: menuCliente.menuCliente();
+                case 3: cliente.mostrarCarrito();
                     break;
                 case 4:
                     opcion = 5;
@@ -45,5 +46,7 @@ public class Menu {
                     break;
             }
         } while (opcion != 5);
+
     }
+
 }
